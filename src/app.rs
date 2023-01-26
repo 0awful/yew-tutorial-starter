@@ -25,7 +25,7 @@ pub fn app() -> Html {
     // This appears to be the easiest way to join an arbitrary number of strings
     let title = vec!["value", "another"].join(" ");
 
-    let message = Some("I am message");
+    let messages: Vec<&str> = vec!["some message", "another", "and one more"];
 
     html! {
         <>
@@ -33,11 +33,17 @@ pub fn app() -> Html {
                 <h1 class={title}>{"Yolo!"}</h1>
             </div>
 
-            if let Some(message) = message {
-                <p>{message}</p>
+            if messages.len() > 0 {
+                <ul>
+                {list_to_html(messages)}
+                </ul>
             } else {
                 <p>{"No messages"}</p>
             }
         </>
     }
+}
+
+fn list_to_html(list: Vec<&str>) -> Vec<Html> {
+    list.iter().map(|item| html! {<li>{item}</li>}).collect() // No semi means implicit return
 }
