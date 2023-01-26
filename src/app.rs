@@ -5,6 +5,8 @@ use yew::prelude::*;
 
 const STYLE_FILE: &str = include_str!("app.css");
 
+use crate::components::atoms::main_title::MainTitle;
+
 #[derive(Serialize, Deserialize)]
 struct Obj {
     a: String,
@@ -24,10 +26,7 @@ pub fn app() -> Html {
 
     html! {
         <html class={stylesheet}>
-            <div>
-                <h1>{"Yolo!"}</h1>
-            </div>
-
+            <MainTitle title="A title!" />
             if messages.len() > 0 {
                 <ul>
                 {list_to_html(messages)}
