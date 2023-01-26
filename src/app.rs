@@ -42,7 +42,7 @@ pub fn app() -> Html {
                 {list_to_html(messages)}
                 </ul>
             } else {
-                <p>{"No messages"}</p>
+                <p class={css!("color: red; font-size: 75px;")}>{"No messages"}</p>
             }
         </html>
     }
