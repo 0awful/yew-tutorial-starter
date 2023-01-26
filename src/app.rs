@@ -1,7 +1,9 @@
 use gloo::console::log;
 use serde::{Deserialize, Serialize};
-use stylist::{style, yew::styled_component};
+use stylist::{yew::styled_component, Style};
 use yew::prelude::*;
+
+const STYLE_FILE: &str = include_str!("app.css");
 
 #[derive(Serialize, Deserialize)]
 struct Obj {
@@ -15,18 +17,7 @@ pub fn app() -> Html {
         a: "awe".to_owned(),
         b: "123".to_owned(),
     };
-    // note the lack of a background color here.
-    // as the body is not impacted by these styles, and can't be no matter how hard we try,
-    // we keep the background-color in index.scss (technically we moved it from index.html, but that was all me not the tutorial)
-    let stylesheet = style!(
-        r#"
-            color: white;
-        "#
-    )
-    .unwrap();
-    // tradeoffs here. one, we have more difficulty reusing styles
-    // two, we can prevent all accidental reuse
-    // if we want to reuse we handle reuse like idiomatic rust
+    let stylesheet: Style = Style::new(STYLE_FILE).unwrap();
 
     log!(serde_json::to_string_pretty(&vals).unwrap());
     let messages: Vec<&str> = vec!["some message", "another", "and one more"];
