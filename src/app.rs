@@ -43,6 +43,8 @@ pub fn app() -> Html {
                 </ul>
             } else {
                 <p class={css!("color: red; font-size: 75px;")}>{"No messages"}</p>
+                // under the hood this makes a new style in the head
+                // as does all other css declarations from stylist
             }
         </html>
     }
