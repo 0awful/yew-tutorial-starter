@@ -24,9 +24,11 @@ pub fn app() -> Html {
     log!(serde_json::to_string_pretty(&vals).unwrap());
     let messages: Vec<&str> = vec!["some message", "another", "and one more"];
 
+    let main_title_load = Callback::from(|message| log!(message));
+
     html! {
         <html class={stylesheet}>
-            <MainTitle title="A title!" status={Status::Ok}/>
+            <MainTitle title="A title!" status={Status::Ok} on_load={main_title_load}/>
             if messages.len() > 0 {
                 <ul>
                 {list_to_html(messages)}
