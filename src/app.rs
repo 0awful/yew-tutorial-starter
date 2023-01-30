@@ -6,6 +6,7 @@ use yew::prelude::*;
 const STYLE_FILE: &str = include_str!("app.css");
 
 use crate::components::atoms::main_title::{MainTitle, Status};
+use crate::components::molecules::custom_form::CustomForm;
 
 #[derive(Serialize, Deserialize)]
 struct Obj {
@@ -38,6 +39,7 @@ pub fn app() -> Html {
                 // under the hood this makes a new style in the head
                 // as does all other css declarations from stylist
             }
+            <CustomForm />
         </html>
     }
 }
