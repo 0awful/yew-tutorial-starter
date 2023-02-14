@@ -11,7 +11,7 @@ pub struct Props {
 #[function_component(TextInput)]
 pub fn text_input(props: &Props) -> Html {
     let handle_onchange = props.handle_onchange.clone();
-    let on_change = Callback::from(move |e: Event| {
+    let on_change = Callback::from(move |e: KeyboardEvent| {
         let value = e
             .target()
             .unwrap()
@@ -20,6 +20,6 @@ pub fn text_input(props: &Props) -> Html {
         handle_onchange.emit(value)
     });
     html! {
-        <input type="text" name={props.name.clone()} onchange={on_change} />
+        <input type="text" name={props.name.clone()} onkeyup={on_change} />
     }
 }
