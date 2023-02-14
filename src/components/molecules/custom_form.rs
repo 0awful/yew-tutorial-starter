@@ -26,16 +26,18 @@ pub fn custom_div() -> Html {
 
     let cloned_state = state.clone();
     let username_changed = Callback::from(move |username| {
-        let mut data = cloned_state.deref().clone();
-        data.username = username;
-        cloned_state.set(data);
+        cloned_state.set(State {
+            username,
+            ..cloned_state.deref().clone()
+        });
     });
 
     let cloned_state = state.clone();
     let button_clicked = Callback::from(move |_| {
-        let mut data = cloned_state.deref().clone();
-        data.count += 1;
-        cloned_state.set(data)
+        cloned_state.set(State {
+            count: cloned_state.count + 1,
+            ..cloned_state.deref().clone()
+        })
     });
     html! {
         <>
