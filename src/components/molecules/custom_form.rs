@@ -1,6 +1,5 @@
 use crate::components::atoms::custom_button::CustomButton;
 use crate::components::atoms::text_input::TextInput;
-use gloo::console::log;
 use std::ops::Deref;
 use stylist::{yew::styled_component, Style};
 use yew::prelude::*;
