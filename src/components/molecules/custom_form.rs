@@ -1,17 +1,23 @@
 use crate::components::atoms::custom_button::CustomButton;
 use crate::components::atoms::text_input::TextInput;
+use serde::{Deserialize, Serialize};
 use std::ops::Deref;
 use stylist::{yew::styled_component, Style};
 use yew::prelude::*;
 
-#[derive(Default, Clone)]
-struct State {
+#[derive(Deserialize, Serialize, Default, Clone)]
+pub struct State {
     pub username: String,
-    pub count: u32,
+    pub language: String,
+}
+
+#[derive(Properties, PartialEq)]
+pub struct Props {
+    pub on_submit: Callback<State>,
 }
 
 #[styled_component(CustomForm)]
-pub fn custom_div() -> Html {
+pub fn custom_div(props: &Props) -> Html {
     let styles: Style = Style::new(
         r#"
             * {
@@ -32,20 +38,28 @@ pub fn custom_div() -> Html {
     });
 
     let cloned_state = state.clone();
-    let button_clicked = Callback::from(move |_| {
+    let language_changed = Callback::from(move |language| {
         cloned_state.set(State {
-            count: cloned_state.count + 1,
+            language,
             ..cloned_state.deref().clone()
-        })
+        });
     });
+
+    let cloned_state = state.clone();
+    let from_on_submit = props.on_submit.clone();
+    let on_submit = Callback::from(move |event: SubmitEvent| {
+        event.prevent_default();
+        from_on_submit.emit(cloned_state.deref().clone())
+    });
+
     html! {
         <>
-            <div class={styles}>
+            <form class={styles} onsubmit={on_submit}>
                 <TextInput name="username" handle_onchange={username_changed} />
-                <CustomButton label="submit" onclick={button_clicked}/>
-            </div>
+                <TextInput name="favorite_language" handle_onchange={language_changed} />
+                <CustomButton label="submit" />
+            </form>
             <p>{"username: "}{&state.username}</p>
-            <p>{"count: "}{&state.count}</p>
         </>
     }
 }

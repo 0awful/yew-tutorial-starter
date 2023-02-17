@@ -20,6 +20,6 @@ pub fn text_input(props: &Props) -> Html {
         handle_onchange.emit(value)
     });
     html! {
-        <input type="text" name={props.name.clone()} onkeyup={on_change} />
+        <input type="text" placeholder={props.name.clone()} name={props.name.clone()} onkeyup={on_change} />
     }
 }
