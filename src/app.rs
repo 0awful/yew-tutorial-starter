@@ -17,6 +17,20 @@ pub fn app() -> Html {
     let stylesheet: Style = Style::new(STYLE_FILE).unwrap();
 
     let state = use_state(Context::default);
+    let first_load = use_state(|| true);
+
+    use_effect(move || {
+        // this code will run on
+        //  - first render
+        //  - all re-renders
+        if *first_load {
+            // will only run on first load, if we set first load to false
+
+            first_load.set(false);
+        }
+
+        || {}
+    });
 
     let custom_form_submit = {
         let from_state = state.clone();
