@@ -1,3 +1,4 @@
+use crate::app::Context;
 use crate::components::atoms::custom_button::CustomButton;
 use crate::components::atoms::text_input::TextInput;
 use serde::{Deserialize, Serialize};
@@ -28,6 +29,7 @@ pub fn custom_div(props: &Props) -> Html {
     .expect("Failed to create style");
 
     let state = use_state(|| State::default());
+    let context = use_context::<Context>();
 
     let cloned_state = state.clone();
     let username_changed = Callback::from(move |username| {
@@ -59,7 +61,8 @@ pub fn custom_div(props: &Props) -> Html {
                 <TextInput name="favorite_language" handle_onchange={language_changed} />
                 <CustomButton label="submit" />
             </form>
-            <p>{"username: "}{&state.username}</p>
+            <p>{"username: "}{context.clone().unwrap_or_default().username}</p>
+            <p>{"language: "}{context.clone().unwrap_or_default().language}</p>
         </>
     }
 }
