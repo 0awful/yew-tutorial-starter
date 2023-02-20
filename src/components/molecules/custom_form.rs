@@ -1,6 +1,6 @@
-use crate::app::Context;
 use crate::components::atoms::custom_button::CustomButton;
 use crate::components::atoms::text_input::TextInput;
+use crate::components::pages::home::Context;
 use serde::{Deserialize, Serialize};
 use std::ops::Deref;
 use stylist::{yew::styled_component, Style};
