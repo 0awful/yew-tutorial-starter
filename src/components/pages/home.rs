@@ -1,6 +1,8 @@
+use crate::router::Route;
 use std::ops::Deref;
 use stylist::{yew::styled_component, Style};
 use yew::{prelude::*, ContextProvider};
+use yew_router::prelude::*;
 
 use crate::components::molecules::custom_form::{CustomForm, State};
 
@@ -41,6 +43,7 @@ pub fn home() -> Html {
     html! {
         <ContextProvider<Context> context={state.deref().clone()}>
             <CustomForm on_submit={custom_form_submit}/>
+            <Link<Route> to={Route::About}>{"Click here to go to about"}</Link<Route>>
         </ContextProvider<Context>>
     }
 }
